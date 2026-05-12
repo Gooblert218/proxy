@@ -1,0 +1,9 @@
+{
+  "name": "secure-proxy-browser",
+  "version": "1.0.0",
+  "description": "Secure proxy web browser",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site - no build needed'"
+  }
+}

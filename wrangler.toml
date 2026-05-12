@@ -1,0 +1,13 @@
+name = "proxy"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[env.production]
+name = "proxy-production"
+routes = [
+  { pattern = "proxy.trackify-apiworkers.workers.dev", zone_id = "" }
+]
+vars = { ENVIRONMENT = "production" }

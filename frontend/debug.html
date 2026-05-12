@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Proxy Browser</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug Proxy Browser</h1>
+
+    <div class="section">
+        <h2>1. Clear Storage</h2>
+        <button onclick="clearStorage()">Clear All Stored Data</button>
+        <p>This will clear cached server URL and API key from browser.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Test Backend Connection</h2>
+        <input type="text" id="testUrl" placeholder="http://localhost:3000" value="http://localhost:3000" style="width: 300px; padding: 5px;">
+        <input type="password" id="testKey" placeholder="Enter API Key" style="width: 300px; padding: 5px;">
+        <button onclick="testConnection()">Test Connection</button>
+        <pre id="testResult"></pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Current Settings</h2>
+        <pre id="currentSettings"></pre>
+    </div>
+
+    <div class="section">
+        <h2>4. Quick Setup</h2>
+        <button onclick="setupLocal()">Setup for Local Testing (localhost:3000)</button>
+        <p>Sets API key to: <code>AWD8!@!awIAWoidkpp124!!!mkwaawadaaaaaaaaaaaaaaA</code></p>
+    </div>
+
+    <div class="section">
+        <h2>5. Back to Proxy Browser</h2>
+        <button onclick="window.location.href='index.html'">Open Proxy Browser</button>
+    </div>
+
+    <script>
+        function clearStorage() {
+            localStorage.clear();
+            console.log('✓ Storage cleared');
+            alert('✓ Storage cleared! Refresh the page.');
+            displaySettings();
+        }
+
+        function displaySettings() {
+            const settings = {
+                serverUrl: localStorage.getItem('serverUrl') || 'not set',
+                apiKey: localStorage.getItem('apiKey') || 'not set',
+            };
+            document.getElementById('currentSettings').textContent = JSON.stringify(settings, null, 2);
+        }
+
+        async function testConnection() {
+            const url = document.getElementById('testUrl').value;
+            const key = document.getElementById('testKey').value;
+            const resultEl = document.getElementById('testResult');
+
+            if (!url || !key) {
+                resultEl.innerHTML = '<span class="error">❌ Please enter both URL and API key</span>';
+                return;
+            }
+
+            resultEl.innerHTML = '⏳ Testing...';
+
+            try {
+                const response = await fetch(`${url}/api/health`, {
+                    method: 'GET',
+                    headers: {
+                        'X-API-Key': key,
+                    },
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultEl.innerHTML = `<span class="success">✓ Connected!</span>\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultEl.innerHTML = `<span class="error">❌ Server responded with status ${response.status}:</span>\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultEl.innerHTML = `<span class="error">❌ Connection failed:</span>\n${error.message}\n\nMake sure the backend is running at ${url}`;
+            }
+        }
+
+        function setupLocal() {
+            localStorage.setItem('serverUrl', 'http://localhost:3000');
+            localStorage.setItem('apiKey', 'AWD8!@!awIAWoidkpp124!!!mkwaawadaaaaaaaaaaaaaaA');
+            alert('✓ Setup complete for local testing!');
+            displaySettings();
+        }
+
+        // Display current settings on load
+        window.addEventListener('DOMContentLoaded', displaySettings);
+    </script>
+</body>
+</html>
