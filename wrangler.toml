@@ -1,8 +1,11 @@
 name = "proxy"
+type = "javascript"
 compatibility_date = "2024-01-01"
 
-# Cloudflare Pages static assets - only include HTML/CSS/JS
-[assets]
-directory = "."
-include = ["*.html", "*.css", "*.js", ".gitignore"]
-exclude = ["node_modules", "package.json", "wrangler.toml"]
+# Cloudflare Pages static site - no build needed
+[env.production]
+name = "proxy"
+
+[build]
+command = "echo 'Static site - no build needed'"
+cwd = "."
