@@ -1,0 +1,19 @@
+{
+  "name": "secure-proxy-browser",
+  "type": "javascript",
+  "compatibility_date": "2026-05-12",
+  "env": {
+    "production": {}
+  },
+  "pages_build_output_dir": "frontend",
+  "assets": {
+    "directory": "frontend"
+  },
+  "routes": [
+    {
+      "pattern": "/*",
+      "zone_name": "example.com"
+    }
+  ]
+}
+
