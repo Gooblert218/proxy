@@ -1,6 +1,6 @@
 class ProxyBrowser {
     constructor() {
-        this.serverUrl = localStorage.getItem('serverUrl') || 'http://localhost:3000';
+        this.serverUrl = localStorage.getItem('serverUrl') || 'https://settlement-timer-opt-trips.trycloudflare.com';
         this.apiKey = localStorage.getItem('apiKey') || '';
         this.isConnected = false;
         this.currentUrl = '';
