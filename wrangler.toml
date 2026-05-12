@@ -1,0 +1,18 @@
+name = "secure-proxy-browser"
+type = "javascript"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages build configuration
+[build]
+command = "echo 'No build needed'"
+
+# Environment variables for Pages
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
+
+# Bindings (if needed for KV storage or Durable Objects in future)
+# [[kv_namespaces]]
+# binding = "KV_STORAGE"

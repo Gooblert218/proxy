@@ -1,0 +1,12 @@
+{
+  "name": "secure-proxy-browser-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for secure proxy browser",
+  "scripts": {
+    "dev": "wrangler pages dev",
+    "deploy": "wrangler pages deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
