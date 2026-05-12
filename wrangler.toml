@@ -1,13 +1,8 @@
-name = "secure-proxy-browser"
+name = "proxy"
 compatibility_date = "2024-01-01"
 
-# Cloudflare Pages static assets configuration
+# Cloudflare Pages static assets - only include HTML/CSS/JS
 [assets]
 directory = "."
-
-# Environment variables for Pages
-[env.production]
-vars = { ENVIRONMENT = "production" }
-
-[env.staging]
-vars = { ENVIRONMENT = "staging" }
+include = ["*.html", "*.css", "*.js", ".gitignore"]
+exclude = ["node_modules", "package.json", "wrangler.toml"]
